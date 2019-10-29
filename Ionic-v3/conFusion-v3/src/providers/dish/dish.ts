@@ -25,7 +25,7 @@ export class DishProvider {
 
   getDishes(): Observable<Dish[]> {
     return this.http.get(baseURL + 'dishes')
-                    .map(res => { return this.processHTTPMsgService.extractData(res) })
+                    .map(res => { return this.processHTTPMsgService.extractData(res); })
                     .catch(error => { return this.processHTTPMsgService.handleError(error); });
   }
 
