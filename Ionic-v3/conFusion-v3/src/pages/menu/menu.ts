@@ -1,8 +1,9 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { Dish } from '../../shared/dish';
 import { DishProvider } from '../../providers/dish/dish';
 import { DishdetailPage } from '../dishdetail/dishdetail';
+import { FavoriteProvider } from '../../providers/favorite/favorite';
 
 /**
  * Generated class for the MenuPage page.
@@ -22,7 +23,9 @@ export class MenuPage implements OnInit{
   errMess: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private dishservice: DishProvider, 
+    private dishservice: DishProvider,
+    private favoriteService: FavoriteProvider, 
+    private toastCtrl: ToastController,
     @Inject('BaseURL') private BaseURL) {
   }
 
@@ -44,6 +47,18 @@ export class MenuPage implements OnInit{
     //C'est bon, On push à nous-même.
     this.navCtrl.push(DishdetailPage, { 
       dish: dish}); /** La page 'DishdetailPage serait le FILS de ce 'Dish' précis  */
+  }
+
+  /** Création fonction afin d'ajouter Dishes dans Favorites */
+  addToFavorites(dish: Dish) {
+    console.log('Adding to Favorites', dish.id);
+    this.favoriteService.addFavorite(dish.id);
+
+    /** Appel de notre variable 'toastCrtl' déclarée dans le constructeur de 'menu', permettant de 'créer' et 'présenter' notre Toast */
+    this.toastCtrl.create({
+      message: "Dish" + dish.id + "added as favorite succesfully (menu.ts page)",
+      duration: 3000
+    }).present();
   }
 
 }

@@ -5,10 +5,23 @@
   Ionic pages and navigation.
 -->
 <ion-header>
+
   <ion-navbar color="primary">
-    <ion-title>Dish Detail</ion-title>
+      <ion-row>
+        <ion-col>
+            <ion-title>Dish Detail</ion-title>
+        </ion-col>
+        <ion-col>
+            <button ion-button icon-right small (click)="moreOptionsDish()">
+                <ion-icon name="more"></ion-icon>
+            </button>
+        </ion-col>
+      </ion-row>
   </ion-navbar>
+
 </ion-header>
+
+
 
 <ion-content padding>
 
@@ -66,10 +79,10 @@
         <ion-icon name="heart-outline"></ion-icon>
       </button>
     </ion-fab>
-    <ion-fab bottom right *ngIf="favorite"> <!-- Si 'favorite' existe, afficher le code suivant '<button>...' -->
+  <ion-fab bottom right *ngIf="favorite"> <!-- Si 'favorite' existe, afficher le code suivant '<button>...' -->
       <button ion-fab>
         <ion-icon name="heart"></ion-icon>
       </button>
-    </ion-fab>
+  </ion-fab>
 
 </ion-content>

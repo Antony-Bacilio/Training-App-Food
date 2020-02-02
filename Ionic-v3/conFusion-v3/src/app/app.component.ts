@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Nav, Platform, ModalController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -7,6 +7,11 @@ import { HomePage } from '../pages/home/home';
 import { AboutPage } from '../pages/about/about';
 import { MenuPage } from '../pages/menu/menu';
 import { ContactPage } from '../pages/contact/contact';
+import { FavoritesPage } from '../pages/favorites/favorites';
+import { ReservationPage } from '../pages/reservation/reservation';
+import { LoginPage } from '../pages/login/login';
+
+
 
 @Component({
   templateUrl: 'app.html'
@@ -18,7 +23,8 @@ export class MyApp {
 
   pages: Array<{title: string, icon: string, component: any}>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,
+    public modalCrtl: ModalController) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -27,17 +33,22 @@ export class MyApp {
       { title: 'About Us', icon:'information-circle', component: AboutPage },
       { title: 'Menu', icon:'list-box', component: MenuPage },
       { title: 'Contact Us', icon:'contact', component: ContactPage },
+      { title: 'MyFavorites', icon:'heart', component: FavoritesPage },
 
     ];
 
   }
 
   initializeApp() {
+    //platform. : service qui permet d'obtenir d'information sur l'appareil actuel.
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
+
+      //plugins :
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      
     });
   }
 
@@ -45,5 +56,17 @@ export class MyApp {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
+  }
+
+  /** Permet d'ouvrir/présenter le Modal Reserve */
+  openReserve() {
+    let modal = this.modalCrtl.create(ReservationPage);
+    modal.present();
+  }
+
+  /** Permet d'ouvrir/présenter le Modal Login */
+  openModalLogin() {
+    let modal = this.modalCrtl.create(LoginPage);
+    modal.present();
   }
 }
